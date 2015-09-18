@@ -1,8 +1,9 @@
 (function(root, $, undefined) {
         'use strict';
 
-        var removeclass = function(classname) {
-                this.removeClass('animated ' + classname + ' animationend webkitAnimationEnd');
+        var removeclass = function(classname,e) {
+                e.stopPropagation();
+                this.removeClass('animated ' + classname + ' webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend');
         };
 
         /**
@@ -12,11 +13,11 @@
         如果该参数设置了true ，则在调用回调函数的时候，会传递一个手动删除 animated class 的函数，以便于主动删除
         usage:
         $(document.body).animatecss('zoomIn',true,function(removelcass){
-		// ... 
-		removeclass();
+        // ... 
+        removeclass();
         });
 	$(document.body).animatecss('zoomIn',function(){
-		// ...
+	// ...
 	});
         */
         $.fn.animatecss = function(classname) {
@@ -36,8 +37,8 @@
                 return $(this).each(function() {
                         var $element = $(this);
                         // 浏览器兼容处理
-                        $element.addClass('animated ' + classname).one('webkitAnimationEnd animationend', function() {
-                                var removeclassfn = removeclass.bind($element, classname);
+                        $element.addClass(classname + ' animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(e) {
+                                var removeclassfn = removeclass.bind($element, classname , e);
                                 var args = [];
                                 if (donotremoveclass !== true) {
                                         removeclassfn();
