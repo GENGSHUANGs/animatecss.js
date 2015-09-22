@@ -45,7 +45,7 @@
                                 } else {
                                         args.push(removeclassfn);
                                 }
-                                (callback || function() {}).apply(undefined, args);
+                                (callback || function() {}).apply($element, args);
                         });
                 });
         };
