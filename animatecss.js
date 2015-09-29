@@ -1,7 +1,7 @@
 (function(root, $, undefined) {
         'use strict';
 
-        var removeclass = function(classname,e) {
+        var removeclass = function(classname, e) {
                 e.stopPropagation();
                 this.removeClass('animated ' + classname + ' webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend');
         };
@@ -16,9 +16,9 @@
         // ... 
         removeclass();
         });
-	$(document.body).animatecss('zoomIn',function(){
-	// ...
-	});
+        $(document.body).animatecss('zoomIn',function(){
+        // ...
+        });
         */
         $.fn.animatecss = function(classname) {
                 var donotremoveclass = false,
@@ -38,7 +38,7 @@
                         var $element = $(this);
                         // 浏览器兼容处理
                         $element.addClass(classname + ' animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(e) {
-                                var removeclassfn = removeclass.bind($element, classname , e);
+                                var removeclassfn = removeclass.bind($element, classname, e);
                                 var args = [];
                                 if (donotremoveclass !== true) {
                                         removeclassfn();
